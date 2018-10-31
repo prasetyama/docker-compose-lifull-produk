@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+    lifull-produk-id:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: lifull-produk-id
+      environment:
+        VIRTUAL_HOST: lifull-local.id
+        TZ: Asia/Jakarta
+      ports:
+        - "80:80"
+      volumes:
+        - /media/prasetyama/3208384708380C7B/xampp_with_php56/htdocs/lifull-produk-id-new:/var/www/my-site
+        - /etc/php/7.2/cli/php.ini:/usr/local/etc/php/php.ini
+        - /etc/timezone:/etc/timezone:ro
+        - /etc/localtime:/etc/localtime:ro
+      links:
+        - memcached:memcached
+
+    memcached:
+      image: memcached
+      ports:
+        - "11211:11211"
